@@ -4,6 +4,8 @@ VGT-Pro is a neural arithmetic logic unit (ALU) that leverages a **dilated itera
 
 ---
 
+[Test] https://wangzhongren.github.io/VGT-ALU/
+
 ## 🧠 Core Architecture
 
 ### `VGTProModel` – The Semantic Arithmetic Kernel
