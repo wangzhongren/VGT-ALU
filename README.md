@@ -1,105 +1,187 @@
-# VGT-Pro: Neural Arithmetic Logic Unit with Dilated Iterative Convolution
+# VGT-ALU：这个神经算术模型究竟学会了什么？
 
-VGT-Pro is a neural arithmetic logic unit (ALU) that leverages a **dilated iterative convolutional architecture** to perform symbolic-numeric hybrid computation. Trained solely on 1–6 digit addition, it achieves **100% accuracy up to 20-digit extrapolation**, demonstrating emergent algorithmic reasoning through geometric pressure and dynamic receptive field expansion.
+VGT-Pro 是一个 **84,746 参数**的十进制加法网络，通过共享卷积的迭代更新处理按低位到高位排列的数字。本项目适合研究局部算术规则如何迁移到更长的算式，以及这种迁移在什么条件下失效。
 
----
+对已发布原始权重的分解实验表明：**模型在短上下文中表现出完整的局部全加器行为，并能正确计算许多超出训练长度的加法；但它尚未学会对所有输入都可靠的长链进位算法。** 随机长整数测试中的高准确率，不能替代连续进位压力测试。
 
-[Test] https://wangzhongren.github.io/VGT-ALU/
+[在线演示](https://wangzhongren.github.io/VGT-ALU/) · [原始权重](vgt_pro_logic_machine.pth) · [规则与隐藏状态实验](understanding/original-learning-probe.json) · [独立算术测试](independent-results.json)
 
-## 🧠 Core Architecture
+## 实验对象与范围
 
-### `VGTProModel` – The Semantic Arithmetic Kernel
-- **Input**: Two reversed-digit sequences (e.g., `[3,2,1] + [6,5,4]` for `123 + 456`)
-- **Embedding**: Each digit → 128-dim vector
-- **Feature Fusion**: Concatenates operand embeddings, reduced via 1×1 conv
-- **Iterative Processing**:
-  - **Dynamic dilation**: Cycles through dilation rates `[1, 2, 4]` over iterations
-  - **Residual propagation**: Ensures long-range carry signals propagate fully
-  - **Redundant steps**: `seq_len + 4` iterations guarantee convergence
-- **Output**: Per-digit logits → decoded into final number
+本文的所有实验使用同一份已发布权重，不重新训练、不调整参数：
 
-> This design mimics a **neural finite-state machine** where each convolutional layer acts as a logic gate with adaptive memory span.
+| 项目 | 信息 |
+| --- | --- |
+| 权重文件 | `vgt_pro_logic_machine.pth` |
+| SHA-256 | `790b1409481782e43dc97822b558312a74377b0c9ad285efe9148e997ae84271` |
+| 文件大小 | 342,302 字节 |
+| 参数量 / 隐藏维度 | 84,746 / 128 |
+| 原始代码基线 | [`2cfd5b2`](https://github.com/wangzhongren/VGT-ALU/tree/2cfd5b229d02947aff6bfd508fb281029c75528c) |
+| 训练范围与步数 | 按训练代码和检查点记录：1–6 位加法，最终 step 50,000 |
+| 实测环境 | Python 3.12、PyTorch 2.6.0+cu124、RTX 4070、FP32，关闭 TF32 |
 
----
+没有原始训练日志可供独立核验完整训练过程。检查点和元数据中的“20 位 100%”字符串由保存函数直接写入，并非自动汇总的评测证据。下面报告的是冻结权重的独立测量。
 
-## ⚙️ Functional Modules
+## 1. 短上下文中的局部规则：200/200
 
-### 1. `vgt_alu_core.py` – Neural ALU Core
-Implements a full arithmetic instruction set using only the trained `add` primitive:
-- **`add(a, b)`**: Native operation via forward pass
-- **`sub(a, b)`**: Implemented via **10's complement arithmetic**
-- **`mul(a, b)`**: Recursive digit-wise accumulation (`a × b = Σ a × digit_i × 10^i`)
-- **`compare(a, b)`**: Leverages `sub` to determine ordering
+十进制全加器需要处理两个当前位数字 `a, b ∈ {0,…,9}` 和输入进位 `c_in ∈ {0,1}`：
 
-> All operations are **symbolically grounded**—no floating-point approximation.
-
-### 2. `vgt_shell.py` – Interactive Shell
-Provides a REPL interface for real-time arithmetic:
-```bash
->>> 12345678901234567890+98765432109876543210
-Result: 111111111011111111100
+```text
+digit = (a + b + c_in) % 10
+c_out = (a + b + c_in) // 10
 ```
-Supports `+`, `-`, `*` with arbitrary-length integers.
 
-### 3. `train_core.py` – Training Engine
-Key innovations:
-- **Geometric Collapse Loss**: 
-  ```python
-  loss = CE + α(t) · ||h||₂
-  ```
-  - `α(t)` follows an **arch-shaped annealing schedule** (ramps up to 50, then decays)
-  - Forces internal states to polarize into discrete logic pathways
-- **Dynamic Digit Mixing**: Randomly samples 1–6 digit problems per batch
-- **Extrapolation Validation**: Tests up to 20 digits during training
+实验穷举全部 `10 × 10 × 2 = 200` 种组合。把被测位置放在十位：个位使用 `0+0` 或 `9+1`，分别产生输入进位 0 或 1；检查十位输出和百位输出。按公开加法接口的方式补零并执行原始迭代过程。
 
----
+| 当前位数字和 | 规则 | 组合数 | 当前位正确 | 输出进位正确 |
+| --- | --- | ---: | ---: | ---: |
+| `a+b ≤ 8` | 消除进位（kill） | 90 | 90/90 | 90/90 |
+| `a+b = 9` | 传递进位（propagate） | 20 | 20/20 | 20/20 |
+| `a+b ≥ 10` | 产生进位（generate） | 90 | 90/90 | 90/90 |
 
-## 📈 Performance
+这支持模型学到了局部全加器的输入输出关系。范围限定在这个短上下文实验：不能据此断言任意位置、任意长度都正确，也不能直接推断隐藏状态里存在显式二值进位或离散逻辑门。
 
-| Digits | Accuracy |
-|--------|----------|
-| 1–6    | 100%     |
-| 12     | 100%     |
-| 16     | 100%     |
-| 20     | 100%     |
+## 2. 控制长度后，长进位链仍然失效
 
-> Model file: `vgt_pro_logic_machine.pth`  
-> Metadata: `vgt_pro_logic_machine_meta.json`
+为了区分“数字太长”和“进位传递不可靠”，每次都使用相同的 **64 位数字字段、补零后的输入宽度 65、70 次迭代**。
 
----
+对每个链长生成 128 对算式。每对只改变一个低位输入数字，让它分别不产生进位或产生进位；随后连续 `L` 个位置都满足 `a_i+b_i=9`，必须逐位传递输入进位。终点设置为 `0+0`，应该分别输出 0 或 1。链内使用不同的互补数字组合，不限于 `9+0`。
 
-## ▶️ Quick Start
+| 连续传递位置数 L | 终点应为 1 时正确 | 正确率 | 终点应为 0 时正确 |
+| ---: | ---: | ---: | ---: |
+| 0 | 128/128 | 100% | 128/128 |
+| 2 | 128/128 | 100% | 128/128 |
+| 4 | 116/128 | 90.63% | 128/128 |
+| 6 | 96/128 | 75.00% | 128/128 |
+| 8 | 88/128 | 68.75% | 128/128 |
+| 12 | 8/128 | 6.25% | 128/128 |
+| 24 | 1/128 | 0.78% | 128/128 |
+| 48 | 2/128 | 1.56% | 128/128 |
 
-1. **Train the model**:
-   ```bash
-   python train_core.py
-   ```
+表中是**链终点正确率**，不是整道加法正确率。终点输出 0 全部正确，也可能反映输出偏向 0，不能证明链内各位都正确。完整结果包含链内和整整数指标，见 [原始 JSON](understanding/original-learning-probe.json)。种子为 `20261013`；各链长使用不同随机背景，同一对算式内的背景完全一致。
 
-2. **Launch interactive shell**:
-   ```bash
-   python vgt_shell.py
-   ```
+进位链越长，进位 1 的终点输出整体越不可靠。固定算式宽度和迭代次数后仍有这一现象，说明失败不能仅用输入长度解释。这些有限样本也不支持一个适用于所有数字组合的固定失败阈值。
 
-3. **Use core ALU in code**:
-   ```python
-   from vgt_alu_core import NeuralALU
-   alu = NeuralALU("vgt_pro_logic_machine.pth")
-   print(alu.mul(1234, 5678))  # → 7006652
-   ```
+### 一个可以直接复现的反例
 
----
+```text
+999999999 + 1
+正确答案：1000000000
+模型输出：1900000000
+```
 
-## 🔬 Design Philosophy
+对 `10**n - 1 + 1` 扫描 `n=1…80`：原始公开接口在 `n=1…8` 正确，在 `n=9…80` 全部失败，[CPU 和 GPU 复核一致](carry-verification.json)。20 个 9 加 1 的输出是 `99990000000000000000`，正确答案是 `100000000000000000000`。
 
-VGT-Pro demonstrates that **algorithmic generalization** can emerge from:
-1. **Structured inductive bias** (reversed digits + convolutional recurrence)
-2. **Geometric regularization** (L2 pressure on hidden states)
-3. **Temporal redundancy** (over-iterated processing)
+## 3. 低位变化能到达高位，但没有形成正确输出
 
-This system blurs the line between neural networks and symbolic machines—each inference step is a **deterministic classification** over digit states, not a probabilistic guess.
+对同一个 20 位全 9 数字，比较加 0 和加 1，只改变个位输入，记录每轮隐藏状态的差异：
 
-> **Note**: The model assumes little-endian digit order internally. All I/O uses standard big-endian notation.
+- 初始差异只在位置 0。
+- 到第 8 次更新，差异已经扩展到位置 0–12。
+- 到第 16 次更新，位置 0–20 均出现差异，高位隐藏状态受到低位输入的影响。
+- 原始默认 26 次更新仍然算错；增加到 52、104、208 次更新也没有得到正确答案。
 
----
+差异判据是两个隐藏向量之差的 L2 范数大于 `1e-6`。这项输入干预说明存在远距离影响，**失败并不只是感受野没有覆盖高位**。它没有证明这些变化编码了正确进位，也没有定位具体进位神经元。
 
-*VGT-Pro: Where every convolution is a carry, and every residual is a proof.*
+合理的待验证解释是：模型学到的局部状态更新在反复传递进位时不够稳定，或高位读取不能可靠区分到达的状态。要判断具体原因，还需要隐藏状态解码、状态替换和结构对照实验。当前结果不能把失败直接归因于某一个卷积膨胀率，也不能证明 L2 正则已经产生“离散逻辑”。
+
+## 4. 为什么随机长整数测试看起来很好？
+
+另一组独立测试使用种子 `20261007`，以**整个整数完全相等**作为正确标准，模拟公开 `add` 接口：
+
+| 操作数位数 | 正确 / 样本数 |
+| ---: | ---: |
+| 1 | 1000/1000 |
+| 3 | 1000/1000 |
+| 6 | 1000/1000 |
+| 12 | 1000/1000 |
+| 20 | 1000/1000 |
+| 30 | 999/1000 |
+| 64 | 200/200 |
+| 128 | 200/200 |
+
+这些是固定样本上的结果，不代表对应长度所有输入都正确。独立均匀十进制数字对中，数字和恰好为 9 的概率为 `10/100`，连续出现很多次相当少见。随机数字很长，并不意味着它包含很长的连续进位传递链。因此，模型可以在随机长算式上表现很好，同时在有针对性的进位构造上系统性失败。
+
+[完整随机测试结果](independent-results.json)还记录了一例 30 位错误，以及训练前向、核心前向和公开接口三种设置的比较。
+
+## 架构与代码实际做了什么
+
+`vgt_alu_core.py` 中的神经网络只预测**加法结果的各位数字**：
+
+```text
+两个操作数的倒序数字
+  → 共享数字 Embedding（128 维）
+  → 同一位置特征拼接 + 1×1 卷积 + ReLU
+  → 末尾补一个全零隐藏位置
+  → 共享 3×1 卷积反复更新：h ← h + ReLU(Conv(h))
+  → 1×1 输出卷积，逐位 argmax，重建十进制整数
+```
+
+膨胀率为前 4 次 `1`、随后 4 次 `2`、剩余全部 `4`，并非循环切换 `[1,2,4]`。原始核心前向迭代 `隐藏序列长度+4` 次；训练代码使用 `隐藏序列长度+2` 次。公开 `add` 还会给两个输入各补一个额外高位零，与训练输入方式存在差别。
+
+这是保留每个数字位置状态的共享卷积迭代网络。长度 n 的输入需要约 n 次迭代，每次处理约 n 个位置；固定通道数时，卷积计算量随长度约为 `O(n²)`，隐藏状态存储约为 `O(n)`。
+
+### 减法、乘法和比较
+
+| 接口 | 实现来源 |
+| --- | --- |
+| `add(a,b)` | 神经网络一次前向预测各位数字 |
+| `sub(a,b)` | Python 判断大小和符号、构造十进制补码，再调用神经加法并截断 |
+| `mul(a,b)` | Python 按乘数各位组织重复加法和十进制移位 |
+| `compare(a,b)` | 调用减法判断符号；减法内部已用 Python 比较操作数 |
+
+这些封装展示了加法原语的组合使用。乘法和减法出错时也可能继承加法错误；它们通过若干测试，不能说明神经网络独立学会了四种运算。`compare` 尤其不能作为网络学会大小比较的独立证据。输入操作数限定为非负整数；减法封装可以返回负结果。
+
+### 原始训练目标
+
+训练数据在线随机生成，宽度为 1–6 位。使用 AdamW，学习率 `5e-4`、权重衰减 `0.01`、batch size 64。实际损失为：
+
+```text
+loss = digit_cross_entropy + alpha(step) * 1e-4 * mean(||h||₂)
+```
+
+`alpha` 在前 70% 训练阶段从 1 升到 50，后 30% 降到 5。代码没有显式进位标签或二值状态约束，也没有证明该正则项的因果作用。外推评测在训练结束后进行，每个长度随机测试 500 例；原始保存函数中的准确率描述是固定字符串。
+
+## 运行与复现
+
+已发布权重可直接加载，无需先重训。CPU 可运行，CUDA 可用时自动使用 GPU。请使用 Python 3.12；实验验证环境为 PyTorch 2.6.0，在该 Python 环境中安装 PyTorch：
+
+```bash
+python -m pip install torch==2.6.0
+```
+
+在仓库根目录运行：
+
+```python
+from vgt_alu_core import NeuralALU
+
+alu = NeuralALU("vgt_pro_logic_machine.pth")
+print(alu.add(123, 456))       # 579
+print(alu.add(999999999, 1))   # 原始权重：1900000000
+```
+
+```bash
+# 局部全加器、固定宽度进位链、低位输入干预
+python understanding/probe_rules.py
+
+# 随机加法、穷举单数字加法、封装运算与输入范围
+python independent_check.py
+
+# CPU/GPU 反例复核、全 9 扫描和额外迭代
+python verify_carry.py
+
+# 原始交互终端
+python vgt_shell.py
+```
+
+实验脚本会覆盖对应 JSON 文件；固定随机种子、关闭 TF32，整数使用字符串记录以避免大整数被其他工具截断。硬件与 PyTorch 版本可能影响浮点计算，复现时应报告环境和完整结果。
+
+如需从头训练，原始 `train_core.py` 还导入 NumPy 和 pandas，可先安装 `numpy pandas`，再运行 `python train_core.py`。该脚本会写入同名权重和元数据，保留原始权重备份后再训练；新训练结果不能与本文冻结权重结果混用。
+
+在线演示用于观察推理输出，并非可靠计算器。原始 ONNX 导出采用 Python 循环追踪；标记动态输入轴不等于迭代次数也随输入长度动态变化，浏览器结果应与 PyTorch 接口分别核验。
+
+## 研究价值与下一步
+
+这个小模型提供了一个容易检查的案例：局部规则可以迁移到远超过训练宽度的算式，但“随机长样本算对”与“完整学习可靠算法”之间仍有明显距离。
+
+下一步优先验证机制：在未参与拟合的长度上解码隐藏状态中的进位信息，替换长链中间状态观察能否恢复正确结果；再对膨胀率、迭代更新、L2 正则和进位训练分布做控制实验。报告整整数准确率，并按进位链长度分组评测，才能区分局部规则、信号传递和可靠算法泛化。

@@ -1,0 +1,1245 @@
+{
+  "seed": 20261007,
+  "device": "cuda",
+  "torch": "2.6.0+cu124",
+  "parameters": 84746,
+  "weight_bytes": 342302,
+  "weight_sha256": "790b1409481782e43dc97822b558312a74377b0c9ad285efe9148e997ae84271",
+  "checkpoint_metadata": {
+    "hidden_size": 128,
+    "max_train_digits": 6,
+    "final_step": 50000,
+    "performance": "100% up to 20 digits"
+  },
+  "random_addition": [
+    {
+      "digits": 1,
+      "mode": "training_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 1,
+      "mode": "core_direct_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 1,
+      "mode": "public_add_wrapper",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 3,
+      "mode": "training_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 3,
+      "mode": "core_direct_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 3,
+      "mode": "public_add_wrapper",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 6,
+      "mode": "training_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.798362374305725,
+      "first_errors": []
+    },
+    {
+      "digits": 6,
+      "mode": "core_direct_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.8019031286239624,
+      "first_errors": []
+    },
+    {
+      "digits": 6,
+      "mode": "public_add_wrapper",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.8982927799224854,
+      "first_errors": []
+    },
+    {
+      "digits": 12,
+      "mode": "training_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.1327099800109863,
+      "first_errors": []
+    },
+    {
+      "digits": 12,
+      "mode": "core_direct_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.1327099800109863,
+      "first_errors": []
+    },
+    {
+      "digits": 12,
+      "mode": "public_add_wrapper",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.132725715637207,
+      "first_errors": []
+    },
+    {
+      "digits": 20,
+      "mode": "training_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.150179147720337,
+      "first_errors": []
+    },
+    {
+      "digits": 20,
+      "mode": "core_direct_forward",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.150179147720337,
+      "first_errors": []
+    },
+    {
+      "digits": 20,
+      "mode": "public_add_wrapper",
+      "n": 1000,
+      "correct": 1000,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.1415531635284424,
+      "first_errors": []
+    },
+    {
+      "digits": 30,
+      "mode": "training_forward",
+      "n": 1000,
+      "correct": 999,
+      "accuracy": 0.999,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.4312517642974854,
+      "first_errors": [
+        {
+          "a": "858840639901995615436343696906",
+          "b": "396459140098994922466153244359",
+          "expected": "1255299780000990537902496941265",
+          "predicted": "1255299880000990537902496941265"
+        }
+      ]
+    },
+    {
+      "digits": 30,
+      "mode": "core_direct_forward",
+      "n": 1000,
+      "correct": 999,
+      "accuracy": 0.999,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.432666778564453,
+      "first_errors": [
+        {
+          "a": "858840639901995615436343696906",
+          "b": "396459140098994922466153244359",
+          "expected": "1255299780000990537902496941265",
+          "predicted": "1255299880000990537902496941265"
+        }
+      ]
+    },
+    {
+      "digits": 30,
+      "mode": "public_add_wrapper",
+      "n": 1000,
+      "correct": 999,
+      "accuracy": 0.999,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.425868034362793,
+      "first_errors": [
+        {
+          "a": "858840639901995615436343696906",
+          "b": "396459140098994922466153244359",
+          "expected": "1255299780000990537902496941265",
+          "predicted": "1255299880000990537902496941265"
+        }
+      ]
+    },
+    {
+      "digits": 64,
+      "mode": "training_forward",
+      "n": 200,
+      "correct": 200,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.040872573852539,
+      "first_errors": []
+    },
+    {
+      "digits": 64,
+      "mode": "core_direct_forward",
+      "n": 200,
+      "correct": 200,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.040872573852539,
+      "first_errors": []
+    },
+    {
+      "digits": 64,
+      "mode": "public_add_wrapper",
+      "n": 200,
+      "correct": 200,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.040872097015381,
+      "first_errors": []
+    },
+    {
+      "digits": 128,
+      "mode": "training_forward",
+      "n": 200,
+      "correct": 200,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.159543037414551,
+      "first_errors": []
+    },
+    {
+      "digits": 128,
+      "mode": "core_direct_forward",
+      "n": 200,
+      "correct": 200,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.159543037414551,
+      "first_errors": []
+    },
+    {
+      "digits": 128,
+      "mode": "public_add_wrapper",
+      "n": 200,
+      "correct": 200,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.159543037414551,
+      "first_errors": []
+    }
+  ],
+  "carry_chain_cases": [
+    {
+      "digits": 1,
+      "mode": "public_add_wrapper",
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.3005622625350952,
+      "first_errors": []
+    },
+    {
+      "digits": 6,
+      "mode": "public_add_wrapper",
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1.0,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.6583101749420166,
+      "first_errors": []
+    },
+    {
+      "digits": 20,
+      "mode": "public_add_wrapper",
+      "n": 5,
+      "correct": 3,
+      "accuracy": 0.6,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.726291537284851,
+      "first_errors": [
+        {
+          "a": "99999999999999999999",
+          "b": "1",
+          "expected": "100000000000000000000",
+          "predicted": "99990000000000000000"
+        },
+        {
+          "a": "99999999999999999998",
+          "b": "2",
+          "expected": "100000000000000000000",
+          "predicted": "99990000000000000000"
+        }
+      ]
+    },
+    {
+      "digits": 30,
+      "mode": "public_add_wrapper",
+      "n": 5,
+      "correct": 3,
+      "accuracy": 0.6,
+      "all_logits_finite": true,
+      "max_abs_hidden": 2.0399723052978516,
+      "first_errors": [
+        {
+          "a": "999999999999999999999999999999",
+          "b": "1",
+          "expected": "1000000000000000000000000000000",
+          "predicted": "999999990000000000000000000000"
+        },
+        {
+          "a": "999999999999999999999999999998",
+          "b": "2",
+          "expected": "1000000000000000000000000000000",
+          "predicted": "999999990000000000000000000000"
+        }
+      ]
+    },
+    {
+      "digits": 64,
+      "mode": "public_add_wrapper",
+      "n": 5,
+      "correct": 3,
+      "accuracy": 0.6,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.6561002731323242,
+      "first_errors": [
+        {
+          "a": "9999999999999999999999999999999999999999999999999999999999999999",
+          "b": "1",
+          "expected": "10000000000000000000000000000000000000000000000000000000000000000",
+          "predicted": "9999999999999999999999909990090000000000000000000000000000000000"
+        },
+        {
+          "a": "9999999999999999999999999999999999999999999999999999999999999998",
+          "b": "2",
+          "expected": "10000000000000000000000000000000000000000000000000000000000000000",
+          "predicted": "9999999999999999999999909990090000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "digits": 128,
+      "mode": "public_add_wrapper",
+      "n": 5,
+      "correct": 3,
+      "accuracy": 0.6,
+      "all_logits_finite": true,
+      "max_abs_hidden": 1.6561002731323242,
+      "first_errors": [
+        {
+          "a": "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+          "b": "1",
+          "expected": "100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "predicted": "99999999999999999999999999999999999999999999999999999999999999999999999999999999999099900990000000000000000000000000000000000000"
+        },
+        {
+          "a": "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999998",
+          "b": "2",
+          "expected": "100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "predicted": "99999999999999999999999999999999999999999999999999999999999999999999999999999999999099900900000000000000000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "single_digit_exhaustive": {
+    "n": 100,
+    "correct": 100,
+    "accuracy": 1.0,
+    "all_logits_finite": true,
+    "max_abs_hidden": 1.798362374305725,
+    "first_errors": []
+  },
+  "orchestrated_operations": {
+    "sub": {
+      "n": 38,
+      "correct": 38,
+      "rows": [
+        {
+          "a": "50000",
+          "b": "12345",
+          "expected": "37655",
+          "actual": "37655",
+          "correct": true
+        },
+        {
+          "a": "0",
+          "b": "0",
+          "expected": "0",
+          "actual": "0",
+          "correct": true
+        },
+        {
+          "a": "0",
+          "b": "123",
+          "expected": "-123",
+          "actual": "-123",
+          "correct": true
+        },
+        {
+          "a": "123",
+          "b": "0",
+          "expected": "123",
+          "actual": "123",
+          "correct": true
+        },
+        {
+          "a": "100",
+          "b": "200",
+          "expected": "-100",
+          "actual": "-100",
+          "correct": true
+        },
+        {
+          "a": "1234",
+          "b": "5678",
+          "expected": "-4444",
+          "actual": "-4444",
+          "correct": true
+        },
+        {
+          "a": "99999999999999999999",
+          "b": "1",
+          "expected": "99999999999999999998",
+          "actual": "99999999999999999998",
+          "correct": true
+        },
+        {
+          "a": "12345678901234567890",
+          "b": "98765432109876543210",
+          "expected": "-86419753208641975320",
+          "actual": "-86419753208641975320",
+          "correct": true
+        },
+        {
+          "a": "444402",
+          "b": "131929",
+          "expected": "312473",
+          "actual": "312473",
+          "correct": true
+        },
+        {
+          "a": "132224",
+          "b": "414763",
+          "expected": "-282539",
+          "actual": "-282539",
+          "correct": true
+        },
+        {
+          "a": "983203",
+          "b": "806931",
+          "expected": "176272",
+          "actual": "176272",
+          "correct": true
+        },
+        {
+          "a": "790233",
+          "b": "925645",
+          "expected": "-135412",
+          "actual": "-135412",
+          "correct": true
+        },
+        {
+          "a": "485087",
+          "b": "577174",
+          "expected": "-92087",
+          "actual": "-92087",
+          "correct": true
+        },
+        {
+          "a": "624977",
+          "b": "27486",
+          "expected": "597491",
+          "actual": "597491",
+          "correct": true
+        },
+        {
+          "a": "66505",
+          "b": "796715",
+          "expected": "-730210",
+          "actual": "-730210",
+          "correct": true
+        },
+        {
+          "a": "263408",
+          "b": "934052",
+          "expected": "-670644",
+          "actual": "-670644",
+          "correct": true
+        },
+        {
+          "a": "23365",
+          "b": "481609",
+          "expected": "-458244",
+          "actual": "-458244",
+          "correct": true
+        },
+        {
+          "a": "494809",
+          "b": "683090",
+          "expected": "-188281",
+          "actual": "-188281",
+          "correct": true
+        },
+        {
+          "a": "700215",
+          "b": "696462",
+          "expected": "3753",
+          "actual": "3753",
+          "correct": true
+        },
+        {
+          "a": "288656",
+          "b": "343777",
+          "expected": "-55121",
+          "actual": "-55121",
+          "correct": true
+        },
+        {
+          "a": "132565",
+          "b": "769293",
+          "expected": "-636728",
+          "actual": "-636728",
+          "correct": true
+        },
+        {
+          "a": "720683",
+          "b": "595514",
+          "expected": "125169",
+          "actual": "125169",
+          "correct": true
+        },
+        {
+          "a": "442562",
+          "b": "75996",
+          "expected": "366566",
+          "actual": "366566",
+          "correct": true
+        },
+        {
+          "a": "339001",
+          "b": "793383",
+          "expected": "-454382",
+          "actual": "-454382",
+          "correct": true
+        },
+        {
+          "a": "532390",
+          "b": "127358",
+          "expected": "405032",
+          "actual": "405032",
+          "correct": true
+        },
+        {
+          "a": "281688",
+          "b": "747531",
+          "expected": "-465843",
+          "actual": "-465843",
+          "correct": true
+        },
+        {
+          "a": "399331",
+          "b": "856312",
+          "expected": "-456981",
+          "actual": "-456981",
+          "correct": true
+        },
+        {
+          "a": "29806",
+          "b": "815028",
+          "expected": "-785222",
+          "actual": "-785222",
+          "correct": true
+        },
+        {
+          "a": "269018",
+          "b": "935329",
+          "expected": "-666311",
+          "actual": "-666311",
+          "correct": true
+        },
+        {
+          "a": "570025",
+          "b": "123300",
+          "expected": "446725",
+          "actual": "446725",
+          "correct": true
+        },
+        {
+          "a": "940168",
+          "b": "378539",
+          "expected": "561629",
+          "actual": "561629",
+          "correct": true
+        },
+        {
+          "a": "829595",
+          "b": "835438",
+          "expected": "-5843",
+          "actual": "-5843",
+          "correct": true
+        },
+        {
+          "a": "995288",
+          "b": "718992",
+          "expected": "276296",
+          "actual": "276296",
+          "correct": true
+        },
+        {
+          "a": "929109",
+          "b": "211374",
+          "expected": "717735",
+          "actual": "717735",
+          "correct": true
+        },
+        {
+          "a": "200070",
+          "b": "504969",
+          "expected": "-304899",
+          "actual": "-304899",
+          "correct": true
+        },
+        {
+          "a": "341195",
+          "b": "893948",
+          "expected": "-552753",
+          "actual": "-552753",
+          "correct": true
+        },
+        {
+          "a": "13989",
+          "b": "592703",
+          "expected": "-578714",
+          "actual": "-578714",
+          "correct": true
+        },
+        {
+          "a": "923422",
+          "b": "462489",
+          "expected": "460933",
+          "actual": "460933",
+          "correct": true
+        }
+      ]
+    },
+    "mul": {
+      "n": 38,
+      "correct": 38,
+      "rows": [
+        {
+          "a": "50000",
+          "b": "12345",
+          "expected": "617250000",
+          "actual": "617250000",
+          "correct": true
+        },
+        {
+          "a": "0",
+          "b": "0",
+          "expected": "0",
+          "actual": "0",
+          "correct": true
+        },
+        {
+          "a": "0",
+          "b": "123",
+          "expected": "0",
+          "actual": "0",
+          "correct": true
+        },
+        {
+          "a": "123",
+          "b": "0",
+          "expected": "0",
+          "actual": "0",
+          "correct": true
+        },
+        {
+          "a": "100",
+          "b": "200",
+          "expected": "20000",
+          "actual": "20000",
+          "correct": true
+        },
+        {
+          "a": "1234",
+          "b": "5678",
+          "expected": "7006652",
+          "actual": "7006652",
+          "correct": true
+        },
+        {
+          "a": "99999999999999999999",
+          "b": "1",
+          "expected": "99999999999999999999",
+          "actual": "99999999999999999999",
+          "correct": true
+        },
+        {
+          "a": "12345678901234567890",
+          "b": "98765432109876543210",
+          "expected": "1219326311370217952237463801111263526900",
+          "actual": "1219326311370217952237463801111263526900",
+          "correct": true
+        },
+        {
+          "a": "502880",
+          "b": "23923",
+          "expected": "12030398240",
+          "actual": "12030398240",
+          "correct": true
+        },
+        {
+          "a": "527796",
+          "b": "414101",
+          "expected": "218560851396",
+          "actual": "218560851396",
+          "correct": true
+        },
+        {
+          "a": "301628",
+          "b": "115854",
+          "expected": "34944810312",
+          "actual": "34944810312",
+          "correct": true
+        },
+        {
+          "a": "945340",
+          "b": "718377",
+          "expected": "679110513180",
+          "actual": "679110513180",
+          "correct": true
+        },
+        {
+          "a": "257006",
+          "b": "191865",
+          "expected": "49310456190",
+          "actual": "49310456190",
+          "correct": true
+        },
+        {
+          "a": "711197",
+          "b": "861644",
+          "expected": "612798627868",
+          "actual": "612798627868",
+          "correct": true
+        },
+        {
+          "a": "779484",
+          "b": "560053",
+          "expected": "436552352652",
+          "actual": "436552352652",
+          "correct": true
+        },
+        {
+          "a": "116165",
+          "b": "732144",
+          "expected": "85049507760",
+          "actual": "85049507760",
+          "correct": true
+        },
+        {
+          "a": "508009",
+          "b": "668985",
+          "expected": "339850400865",
+          "actual": "339850400865",
+          "correct": true
+        },
+        {
+          "a": "336802",
+          "b": "806295",
+          "expected": "271561768590",
+          "actual": "271561768590",
+          "correct": true
+        },
+        {
+          "a": "171182",
+          "b": "522971",
+          "expected": "89523221722",
+          "actual": "89523221722",
+          "correct": true
+        },
+        {
+          "a": "429799",
+          "b": "226415",
+          "expected": "97312940585",
+          "actual": "97312940585",
+          "correct": true
+        },
+        {
+          "a": "742506",
+          "b": "234155",
+          "expected": "173861492430",
+          "actual": "173861492430",
+          "correct": true
+        },
+        {
+          "a": "993894",
+          "b": "239805",
+          "expected": "238340750670",
+          "actual": "238340750670",
+          "correct": true
+        },
+        {
+          "a": "945802",
+          "b": "850904",
+          "expected": "804786705008",
+          "actual": "804786705008",
+          "correct": true
+        },
+        {
+          "a": "579031",
+          "b": "26355",
+          "expected": "15260362005",
+          "actual": "15260362005",
+          "correct": true
+        },
+        {
+          "a": "862853",
+          "b": "208230",
+          "expected": "179671880190",
+          "actual": "179671880190",
+          "correct": true
+        },
+        {
+          "a": "286504",
+          "b": "269714",
+          "expected": "77274139856",
+          "actual": "77274139856",
+          "correct": true
+        },
+        {
+          "a": "987209",
+          "b": "657494",
+          "expected": "649083994246",
+          "actual": "649083994246",
+          "correct": true
+        },
+        {
+          "a": "181232",
+          "b": "652514",
+          "expected": "118256417248",
+          "actual": "118256417248",
+          "correct": true
+        },
+        {
+          "a": "120011",
+          "b": "297375",
+          "expected": "35688271125",
+          "actual": "35688271125",
+          "correct": true
+        },
+        {
+          "a": "46629",
+          "b": "922550",
+          "expected": "43017583950",
+          "actual": "43017583950",
+          "correct": true
+        },
+        {
+          "a": "578927",
+          "b": "158810",
+          "expected": "91939396870",
+          "actual": "91939396870",
+          "correct": true
+        },
+        {
+          "a": "974661",
+          "b": "708460",
+          "expected": "690508332060",
+          "actual": "690508332060",
+          "correct": true
+        },
+        {
+          "a": "866517",
+          "b": "868877",
+          "expected": "752896691409",
+          "actual": "752896691409",
+          "correct": true
+        },
+        {
+          "a": "974224",
+          "b": "901711",
+          "expected": "878468497264",
+          "actual": "878468497264",
+          "correct": true
+        },
+        {
+          "a": "906063",
+          "b": "666555",
+          "expected": "603940822965",
+          "actual": "603940822965",
+          "correct": true
+        },
+        {
+          "a": "587653",
+          "b": "11009",
+          "expected": "6469471877",
+          "actual": "6469471877",
+          "correct": true
+        },
+        {
+          "a": "54111",
+          "b": "454277",
+          "expected": "24581382747",
+          "actual": "24581382747",
+          "correct": true
+        },
+        {
+          "a": "275677",
+          "b": "498798",
+          "expected": "137507136246",
+          "actual": "137507136246",
+          "correct": true
+        }
+      ]
+    },
+    "compare": {
+      "n": 38,
+      "correct": 38,
+      "rows": [
+        {
+          "a": "50000",
+          "b": "12345",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "0",
+          "b": "0",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "0",
+          "b": "123",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "123",
+          "b": "0",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "100",
+          "b": "200",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "1234",
+          "b": "5678",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "99999999999999999999",
+          "b": "1",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "12345678901234567890",
+          "b": "98765432109876543210",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "509721",
+          "b": "354738",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "484992",
+          "b": "593858",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "471284",
+          "b": "952697",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "272750",
+          "b": "609935",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "816049",
+          "b": "174196",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "91176",
+          "b": "798726",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "620302",
+          "b": "741647",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "81492",
+          "b": "28648",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "989848",
+          "b": "867776",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "46353",
+          "b": "827185",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "585819",
+          "b": "832361",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "302032",
+          "b": "281073",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "935964",
+          "b": "574128",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "297563",
+          "b": "658281",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "522252",
+          "b": "315150",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "886996",
+          "b": "125274",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "389685",
+          "b": "614432",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "232276",
+          "b": "154436",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "637800",
+          "b": "740004",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "419792",
+          "b": "739649",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "73987",
+          "b": "449623",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "495552",
+          "b": "256622",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "921832",
+          "b": "383735",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "414419",
+          "b": "886031",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "3086",
+          "b": "105435",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "621125",
+          "b": "56610",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "768695",
+          "b": "160415",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "529750",
+          "b": "232753",
+          "expected": "True",
+          "actual": "True",
+          "correct": true
+        },
+        {
+          "a": "920283",
+          "b": "972278",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        },
+        {
+          "a": "947336",
+          "b": "982053",
+          "expected": "False",
+          "actual": "False",
+          "correct": true
+        }
+      ]
+    }
+  },
+  "negative_inputs": [
+    {
+      "op": "add",
+      "a": -1,
+      "b": 2,
+      "error": "ValueError: invalid literal for int() with base 10: '-'"
+    },
+    {
+      "op": "mul",
+      "a": -2,
+      "b": 3,
+      "error": "ValueError: invalid literal for int() with base 10: '-'"
+    },
+    {
+      "op": "mul",
+      "a": 2,
+      "b": -3,
+      "error": "ValueError: invalid literal for int() with base 10: '-'"
+    }
+  ],
+  "elapsed_seconds": 2.382343292236328,
+  "notes": [
+    "Exact whole-integer equality, not per-digit accuracy.",
+    "No training and no checkpoint tuning.",
+    "Public add pads one extra leading zero; training forward uses two fewer iterations than core.",
+    "Subtraction/multiplication/comparison contain explicit host-language algorithms.",
+    "Finite samples do not prove all-input correctness. Negative operands outside documented nonnegative input mechanism are tested separately."
+  ]
+}
